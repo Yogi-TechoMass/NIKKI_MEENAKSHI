@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Nikhil 🎂</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .page.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 900px;
+      animation: fadeUp 1s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px 35px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff0080, #ff8c00);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    }
+
+    video {
+      width: 90%;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    }
+
+    .start-page {
+      background: radial-gradient(circle, #1a1a1a, #000);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🎵 Background Music (Chrome Safe) -->
+  <audio id="bgMusic" src="audio.mp3" loop preload="auto"></audio>
+
+  <!-- ▶ Start Page -->
+  <div class="page active start-page">
+    <div class="overlay">
+      <h1>🎁 A Special Birthday Surprise 🎁</h1>
+      <p>Tap the button below and prepare for laughter, nostalgia, and mild emotional damage 😄</p>
+      <button onclick="startSurprise()">Open Surprise 🎉</button>
+    </div>
+  </div>
+
+  <!-- Page 1 -->
+  <div class="page" style="background-image: url('img1.jpg')">
+    <div class="overlay">
+      <p>
+        Breaking News: Local legend Nikhil turns another year older today.
+        Witnesses report he's still using "I'm too old for this" as an excuse for everything.
+        May your birthday cake have fewer candles than your age because we don't want
+        to trigger the fire alarm. Again.
+      </p>
+      <button onclick="nextPage()">Next ➡️</button>
+    </div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page" style="background-image: url('img2.jpg')">
+    <div class="overlay">
+      <p>
+        Happy Birthday to Nikhil, the only person I know who ages like fine cheese—getting
+        more expensive and slightly funkier every year. May your hairline be ever in your
+        favor and may you receive socks as gifts because let's be honest, you're at that
+        age where you'll actually be excited about it.
+      </p>
+      <button onclick="nextPage()">Next ➡️</button>
+    </div>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="page" style="background-image: url('img3.jpg')">
+    <div class="overlay">
+      <p>
+        Nikhil! Congratulations on surviving another trip around the sun without getting
+        flung off into space. That's honestly impressive given how dizzy life makes us.
+        Here's to you being one year closer to yelling at teenagers for no reason and
+        falling asleep during movies you actually wanted to watch!
+      </p>
+      <button onclick="nextPage()">Next ➡️</button>
+    </div>
+  </div>
+
+  <!-- Page 4 -->
+  <div class="page" style="background-image: url('img4.jpg')">
+    <div class="overlay">
+      <p>
+        Happy Birthday, Nikhil! You're now at that perfect age where your back goes out
+        more than you do. Don't worry though, you're not old—you're just a classic, like
+        a vintage wine or a Nokia 3310. Cheers to another year of questionable decisions
+        and forgetting why you walked into rooms!
+      </p>
+      <button onclick="nextPage()">Final Surprise 🎥</button>
+    </div>
+  </div>
+
+  <!-- Page 5 (Video) -->
+  <div class="page">
+    <div class="overlay">
+      <h1>❤️ For You, Nikhil ❤️</h1>
+      <video id="birthdayVideo" controls preload="metadata">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <!-- 🧠 Chrome-Safe Script -->
+  <script>
+    const pages = document.querySelectorAll('.page');
+    const music = document.getElementById('bgMusic');
+    const video = document.getElementById('birthdayVideo');
+    let currentPage = 0;
+    let started = false;
+
+    function startSurprise() {
+      if (!started) {
+        started = true;
+
+        // Start music after user interaction (Chrome Safe)
+        music.volume = 0.6;
+        music.play().catch(err => console.log("Audio blocked:", err));
+      }
+      nextPage();
+    }
+
+    function nextPage() {
+      pages[currentPage].classList.remove('active');
+      currentPage++;
+
+      if (currentPage < pages.length) {
+        pages[currentPage].classList.add('active');
+
+        // Auto play video when reaching last page
+        if (currentPage === pages.length - 1) {
+          setTimeout(() => {
+            video.play().catch(err => console.log("Video blocked:", err));
+          }, 500);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
+
